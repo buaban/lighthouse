@@ -13,6 +13,7 @@
    1. [Naming](#naming)
    1. [Scoring](#scoring)
    1. [Common Mistakes](#common-mistakes)
+1. [Examples](#examples)
 
 ## Introduction
 
@@ -22,18 +23,12 @@ If you're new to Lighthouse development, start by reading up on the overall [arc
 
 Lighthouse plugins are a way to extend the functionality of Lighthouse with insight from domain experts (that's you!) and easily share this extra functionality with other Lighthouse users. At its core, a plugin is a node module that implements a set of checks that will get run by Lighthouse and added to the report as a new category.
 
-### Do You Need a Custom Audit?
-
-Lighthouse has a lot of audits already. It's possible the data is already being returned by Lighthouse! If you're in doubt about whether your use case needs a custom audit, [file an issue to discuss](https://github.com/GoogleChrome/lighthouse/issues/new/choose).
-
-Consider the criteria
-
 ### Plugins v. Custom Config
 
 Plugins are easily shared and have a stable API that won't change between minor version bumps but are also more limited in scope. You might need a [custom Lighthouse configuration](./configuration.md) instead. Before getting started with plugins, think about your current needs, and consult the table below to decide which is best for you.
 
-| Capability                           | Plugins | Custom Config |
-| ------------------------------------ | ------- | ------------- |
+| Capability                           | Plugin | Custom Config |
+| ------------------------------------ | ------ | ------------- |
 | Add custom audits                    | ✅      | ✅            |
 | Add custom categories                | ✅      | ✅            |
 | Easily sharable via NPM              | ✅      | ❌            |
@@ -76,14 +71,14 @@ This file contains the configuration for your plugin. It can be called anything 
 
 ```js
 module.exports = {
-  // Additional audit to run on information Lighthouse gathered.
-  audits: [{path: 'lighthouse-plugin-cats/cat-audit.js'}],
+  // Additional audits to run on information Lighthouse gathered.
+  audits: [{path: 'lighthouse-plugin-cats/audits/has-cat-images.js'}],
 
   // A new category in the report for the plugin output.
   category: {
     title: 'Cats',
-    description: 'Results for our new cat plugin category.',
-    auditRefs: [{id: 'cat-audit-id', weight: 1}],
+    description: 'When integrated into your website effectively, cats deliver delight and bemusement.',
+    auditRefs: [{id: 'has-cat-images-id', weight: 1}],
   },
 };
 ```
@@ -95,7 +90,7 @@ These files contain the logic that will generate results for the Lighthouse repo
 1. `meta` - This contains important information about how the audit will be referenced in the config and how it will be displayed in the HTML report.
 2. `audit` - This is a function that should return the audit's results.
 
-**Example `cat-audit.js`**
+**Example `audits/has-cat-images.js`**
 
 ```js
 const Audit = require('lighthouse').Audit;
@@ -103,7 +98,7 @@ const Audit = require('lighthouse').Audit;
 class CatAudit extends Audit {
   static get meta() {
     return {
-      id: 'cat-audit-id',
+      id: 'has-cat-images-id',
       title: 'Page has least one cat image',
       failureTitle: 'Page does not have at least one cat image',
       description: 'Pages should have lots of cat images to keep users happy. ' +
@@ -140,7 +135,7 @@ A plugin config is an object that has at least two properties: `audits` and `cat
 
 #### `audits`
 
-Defines the new audits the plugin adds. It is an array of string paths to the audit files. Each path should be treated as an absolute string a user of your module might pass to `require`, so use paths of the form `lighthouse-plugin-<your plugin>/path/to/audit.js`.
+Defines the new audits the plugin adds. It is an array of string paths to the audit files. Each path should be treated as an absolute string a user of your module might pass to `require`, so use paths of the form `lighthouse-plugin-<your plugin>/path/to/audits/audit-file.js`.
 
 **Type**: `Array<{path: string}>`
 
@@ -160,10 +155,11 @@ Defines the display strings of the plugin's category and configures audit scorin
 Defines the audit groups used for display in the HTML report.
 
 **Example of Audit Display with Groups**
-![audit group with groups](https://user-images.githubusercontent.com/2301202/56936017-86d3ce80-6aba-11e9-9a43-39bf3810b551.png)
+<img alt="audit group with groups" src="https://user-images.githubusercontent.com/2301202/56936017-86d3ce80-6aba-11e9-9a43-39bf3810b551.png" width=550>
+
 
 **Example of Audit Display without Groups**
-![audit display without groups](https://user-images.githubusercontent.com/2301202/56936043-c0a4d500-6aba-11e9-9e37-0bc131010a37.png)
+<img alt="audit group without groups" src="https://user-images.githubusercontent.com/2301202/56936043-c0a4d500-6aba-11e9-9e37-0bc131010a37.png" width=550>
 
 It is an object whose keys are the group IDs and whose values are objects with the following properties:
 
@@ -196,7 +192,7 @@ The primary objective of the audit function is to return a `score` from `0` to `
 
 #### Available Artifacts
 
-The following artifacts are available for use in the audits of Lighthouse plugins. For more detailed information on their usage and purpose, see the [type information](https://github.com/GoogleChrome/lighthouse/blob/623b789497f6c87f85d366b4038deae5dc701c90/types/artifacts.d.ts#L20-L70)`.
+The following artifacts are available for use in the audits of Lighthouse plugins. For more detailed information on their usage and purpose, see the [type information](https://github.com/GoogleChrome/lighthouse/blob/623b789497f6c87f85d366b4038deae5dc701c90/types/artifacts.d.ts#L20-L70).
 
 - `devtoolsLogs`
 - `fetchTime`
@@ -233,7 +229,7 @@ class HeaderPoliceAudit {
   static get meta() {
     return {
       id: 'header-police-audit-id',
-      title: 'All headers look good',
+      title: 'All headers stripped of debug data',
       failureTitle: 'Headers contained debug data',
       description: 'Pages should mask debug data in production.',
       requiredArtifacts: ['devtoolsLogs'],
@@ -350,3 +346,7 @@ Most artifacts will try to represent as truthfully as possible what was observed
 - Header names and values
 - Script `type` values
 - Script `src` values
+
+## Examples
+
+- [Google AdSpeed Insights](https://github.com/googleads/ad-speed-insights) - a well-written, but complex, plugin
