@@ -944,10 +944,12 @@
 
 .lh-warnings {
   --item-margin: calc(var(--body-line-height) / 6);
-  border: 1px solid var(--color-average);
-  border-radius: 4px;
+  color: var(--color-average);
   margin: var(--lh-audit-vpadding) 0;
   padding: calc(var(--lh-audit-vpadding) / 2) var(--lh-audit-vpadding);
+}
+.lh-warnings span {
+  font-weight: bold;
 }
 
 .lh-warnings--toplevel {
