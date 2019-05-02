@@ -7,6 +7,8 @@
 
 const cli = require('../../lighthouse-cli/run.js');
 const cliFlags = require('../../lighthouse-cli/cli-flags.js');
+const fs = require('fs');
+const artifactPath = 'lighthouse-core/test/results/artifacts';
 
 const {server} = require('../../lighthouse-cli/test/fixtures/static-server.js');
 
@@ -32,9 +34,10 @@ const budgetedConfig = {
 };
 
 /**
- * Update the report artifacts
+ * Update the report artifacts, if artifactName is set only that artifact will be updated
+ * @param {string?} artifactName
  */
-async function update() {
+async function update(artifactName) {
   // get an available port
   server.listen(0, 'localhost');
   const port = await new Promise(res => server.on('listening', () => {
@@ -43,15 +46,32 @@ async function update() {
     res(address.port);
   }));
 
+  const oldArtifacts = readArtifacts();
+
   const url = `http://localhost:${port}/dobetterweb/dbw_tester.html`;
   const rawFlags = [
-    '--gather-mode=lighthouse-core/test/results/artifacts',
+    '--gather-mode=' + artifactPath,
     '--throttling-method=devtools',
     url,
   ].join(' ');
   const flags = cliFlags.getFlags(rawFlags);
   await cli.runLighthouse(url, flags, budgetedConfig);
   await new Promise(res => server.close(res));
+
+  if (artifactName) {
+    // Revert everything except the one artifact
+    const newArtifacts = readArtifacts();
+    const finalArtifacts = oldArtifacts;
+    finalArtifacts[artifactName] = newArtifacts[artifactName];
+    fs.writeFileSync(
+      artifactPath + '/artifacts.json',
+      JSON.stringify(finalArtifacts, null, 2) + '\n'
+    );
+  }
 }
 
-update();
+function readArtifacts() {
+  return JSON.parse(fs.readFileSync(artifactPath + '/artifacts.json', 'utf8'));
+}
+
+update(process.argv[2]);
