@@ -454,6 +454,7 @@
 }
 .lh-category-header__description  {
   font-size: var(--body-font-size);
+  text-align: center;
   margin: 0px auto;
   max-width: 400px;
 }
