@@ -4,7 +4,7 @@
 
 1. [Introduction](#introduction)
    1. [What is a Lighthouse Plugin?](#what-is-a-lighthouse-plugin)
-   1. [Plugins v. Custom Config](#plugins-v-custom-config)
+   1. [Comparing a Plugin vs. Custom Config](#comparing-a-plugin-vs-custom-config)
    1. [Getting Started](#getting-started)
 1. [API](#api)
    1. [Plugin Config](#plugin-config)
