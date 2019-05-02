@@ -311,7 +311,8 @@
     we'd be happy for the URL column to wrap if the URLs are particularly long.
     * We want the narrow columns to remain narrow, providing the most column width for URL
     * We don't want the table to extend past 100% width.
-    * The URL column should get ellipsis when it hits max width. TODO THIS.
+    * Long URLs in the URL column can wrap. Util.getURLDisplayName maxes them out at 64 characters,
+      but they do not get any overflow:ellipsis treatment.
   */
   word-break: break-word;
 }
@@ -1203,11 +1204,6 @@
 .lh-table-column--url + .lh-table-column--ms + th.lh-table-column--bytes,
 .lh-table-column--url + .lh-table-column--bytes + th.lh-table-column--timespanMs {
   width: 12%;
-}
-
-.lh-text__url {
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .lh-text__url:hover {
