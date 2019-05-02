@@ -1144,15 +1144,13 @@
   width: calc(100% - var(--inner-audit-left-padding));
 }
 
-.lh-table thead {
-  background-color: var(--lh-table-higlight-bg);
-}
 .lh-table thead th {
   font-weight: normal;
   word-wrap: normal;
+  color: var(--color-black-600);
 }
 
-.lh-table tbody tr:nth-child(even) {
+.lh-table tbody tr:nth-child(odd) {
   background-color: var(--lh-table-higlight-bg);
 }
 
