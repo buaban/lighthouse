@@ -862,6 +862,10 @@
   /* When the header takes 100% width, the chevron becomes small. */
   max-width: calc(100% - var(--chevron-size));
 }
+/* max-width makes the metric toggle not flush. metrics doesn't have a chevron so unset. */
+.lh-audit-group--metrics .lh-audit-group__header {
+  max-width: unset;
+}
 
 .lh-audit-group__header span.lh-audit-group__title {
   font-weight: bold;
