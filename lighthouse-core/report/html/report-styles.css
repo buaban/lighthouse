@@ -105,8 +105,8 @@
   --env-name-min-width: 220px;
   --env-tem-padding: 10px 0px;
   --expandable-padding: 0 0 2px calc(var(--score-shape-margin-left) + var(--score-shape-size) + var(--score-shape-margin-right));
-  --gauge-circle-size-big: 120px;
-  --gauge-circle-size: 96px;
+  --gauge-circle-size-big: 112px;
+  --gauge-circle-size: 80px;
   --header-padding: 20px 0 20px 0;
   --highlighter-bg: var(--color-black-400);
   --icon-square-size: calc(var(--score-shape-size) * 0.88);
@@ -117,9 +117,9 @@
   --pwa-icon-margin: 0 6px 0 -2px;
   --pwa-icon-size: var(--topbar-icon-size);
   --score-container-padding: 8px;
-  --score-container-width: 160px;
-  --score-number-font-size-big: 42px;
-  --score-number-font-size: 34px;
+  --score-container-width: 148px;
+  --score-number-font-size-big: 38px;
+  --score-number-font-size: 28px;
   --score-shape-margin-left: 4px;
   --score-shape-margin-right: 12px;
   --score-shape-margin-top: 7px;
@@ -133,7 +133,7 @@
   --scorescale-width: 18px;
   --section-padding: 40px;
   --topbar-bg: var(--color-black-100);
-  --topbar-height: 36px;
+  --topbar-height: 32px;
   --topbar-icon-size: 24px;
   --topbar-padding: 0 8px;
 
@@ -224,7 +224,7 @@
     --score-title-line-height-big: 26px;
     --score-title-line-height: 20px;
     --section-padding: 24px;
-    --topbar-height: 32px;
+    --topbar-height: 28px;
     --topbar-icon-size: 20px;
   }
 
