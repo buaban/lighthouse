@@ -76,6 +76,7 @@
   --lh-audit-group-vpadding: 8px;
   --lh-section-vpadding: 12px;
   --chevron-size: 12px;
+  --inner-audit-left-padding: calc(var(--text-indent) + var(--lh-audit-index-width) + 2 * var(--audit-item-gap));
 
   /* Palette. */
   --color-black-100: #F5F5F5;
@@ -307,7 +308,6 @@
 }
 
 .lh-audit__description, .lh-audit__stackpack {
-  --inner-audit-left-padding: calc(var(--text-indent) + var(--lh-audit-index-width) + 2 * var(--audit-item-gap));
   --inner-audit-right-padding: calc(var(--text-indent) + 2px);
   padding-left: var(--inner-audit-left-padding);
   padding-right: var(--inner-audit-right-padding);
@@ -319,6 +319,7 @@
   font-size: var(--body-font-size);
   margin-top: var(--default-padding);
   margin-bottom: var(--default-padding);
+  margin-left: var(--inner-audit-left-padding);
   /* whatever the .lh-details side margins are */
   width: 100%;
 }
@@ -1139,6 +1140,8 @@
 .lh-table {
   --image-preview-size: 24px;
   border-collapse: collapse;
+  /* Can't assign padding to table, so shorten the width instead. */
+  width: calc(100% - var(--inner-audit-left-padding));
 }
 
 .lh-table thead {
