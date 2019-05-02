@@ -27,15 +27,15 @@ Lighthouse plugins are a way to extend the functionality of Lighthouse with insi
 
 Plugins are easily shared and have a stable API that won't change between minor version bumps but are also more limited in scope than a [custom Lighthouse configuration](./configuration.md). Before getting started with plugins, think about your current needs, and consult the table below to decide which is best for you.
 
-| Capability                           | Plugin | Custom Config |
-| ------------------------------------ | ------ | ------------- |
-| Include your own custom audits | ✅      | ✅            |
-| Add a custom category          | ✅      | ✅            |
-| Easily shareable via NPM              | ✅      | ❌            |
-| Semver-stable API                    | ✅      | ❌            |
-| Gather custom data from the page (artifacts) | ❌      | ✅            |
-| Modify core categories               | ❌      | ✅            |
-| Modify `config.settings` properties  | ❌      | ✅            |
+| Capability                                   | Plugin | Custom Config |
+| -------------------------------------------- | ------ | ------------- |
+| Include your own custom audits               | ✅     | ✅            |
+| Add a custom category                        | ✅     | ✅            |
+| Easily shareable via NPM                     | ✅     | ❌            |
+| Semver-stable API                            | ✅     | ❌            |
+| Gather custom data from the page (artifacts) | ❌     | ✅            |
+| Modify core categories                       | ❌     | ✅            |
+| Modify `config.settings` properties          | ❌     | ✅            |
 
 ### Getting Started
 
@@ -77,7 +77,8 @@ module.exports = {
   // A new category in the report for the plugin output.
   category: {
     title: 'Cats',
-    description: 'When integrated into your website effectively, cats deliver delight and bemusement.',
+    description:
+      'When integrated into your website effectively, cats deliver delight and bemusement.',
     auditRefs: [{id: 'has-cat-images-id', weight: 1}],
   },
 };
@@ -101,7 +102,8 @@ class CatAudit extends Audit {
       id: 'has-cat-images-id',
       title: 'Page has least one cat image',
       failureTitle: 'Page does not have at least one cat image',
-      description: 'Pages should have lots of cat images to keep users happy. ' +
+      description:
+        'Pages should have lots of cat images to keep users happy. ' +
         'Consider adding a picture of a cat to your page improve engagement.',
       requiredArtifacts: ['ImageElements'],
     };
@@ -118,7 +120,7 @@ class CatAudit extends Audit {
       score: catImages.length > 0 ? 1 : 0,
       // Also return the total number of cat images that can be used by report JSON consumers.
       numericValue: catImages.length,
-    }
+    };
   }
 }
 
@@ -139,16 +141,14 @@ Defines the new audits the plugin adds. It is an array of string paths to the au
 
 **Type**: `Array<{path: string}>`
 
-
 #### `category`
 
 Defines the display strings of the plugin's category and configures audit scoring and grouping. It is an object with at least two properties `title` and `auditRefs`.
 
 - `title: string` **REQUIRED** - The display name of the plugin's category in the report.
-- `description: string` *OPTIONAL* - A more detailed description of the category's purpose.
-- `manualDescription: string` *OPTIONAL* - A more detailed description of all of the manual audits in a plugin. Only use this if you've added manual audits.
+- `description: string` _OPTIONAL_ - A more detailed description of the category's purpose.
+- `manualDescription: string` _OPTIONAL_ - A more detailed description of all of the manual audits in a plugin. Only use this if you've added manual audits.
 - `auditRefs: Array<{id: string, weight: number, group?: string}>` **REQUIRED** - The list of audits to include in the plugin category along with their overall weight in the score of the plugin category. Each audit ref may optionally reference a group ID from `groups`.
-
 
 #### `groups`
 
@@ -157,14 +157,13 @@ Defines the audit groups used for display in the HTML report.
 **Example of Category with Groups**
 <img alt="audit group with groups" src="https://user-images.githubusercontent.com/2301202/56936017-86d3ce80-6aba-11e9-9a43-39bf3810b551.png" width=550>
 
-
 **Example of Category _without_ Groups**
 <img alt="audit group without groups" src="https://user-images.githubusercontent.com/2301202/56936043-c0a4d500-6aba-11e9-9e37-0bc131010a37.png" width=550>
 
 It is an object whose keys are the group IDs and whose values are objects with the following properties:
 
 - `title: string` **REQUIRED** - The display name of the group in the report.
-- `description: string` *OPTIONAL* - A more detailed description of the group's purpose.
+- `description: string` _OPTIONAL_ - A more detailed description of the group's purpose.
 
 ### Plugin Audits
 
@@ -176,10 +175,10 @@ The `meta` property is a static getter for the metadata of an audit. It should r
 
 - `id: string` **REQUIRED** - The string identifier of the audit, in kebab case, typically matching the file name.
 - `title: string` **REQUIRED** - Short, user-visible title for the audit when successful.
-- `failureTitle: string` *OPTIONAL* - Short, user-visible title for the audit when failing.
+- `failureTitle: string` _OPTIONAL_ - Short, user-visible title for the audit when failing.
 - `description: string` **REQUIRED** - A more detailed description that describes why the audit is important and links to Lighthouse documentation on the audit; markdown links supported.
 - `requiredArtifacts: Array<string>` **REQUIRED** - A list of artifacts that must be present for the audit to execute. See [Available Artifacts](#available-artifacts) for what's available to plugins.
-- `scoreDisplayMode: "numeric" | "binary" | "manual" | "informative"` *OPTIONAL* - A string identifying how the score should be interpreted for display.
+- `scoreDisplayMode: "numeric" | "binary" | "manual" | "informative"` _OPTIONAL_ - A string identifying how the score should be interpreted for display.
 
 See [Best Practices > Naming](#naming) for best practices on the display strings.
 
@@ -188,7 +187,6 @@ See [Best Practices > Naming](#naming) for best practices on the display strings
 The `audit()` property is a function the computes the audit results for the report. It accepts two arguments: `artifacts` and `context`. `artifacts` is an object whose keys will be the values you passed to `requiredArtifacts` in the `meta` object. `context` is an internal object whose primary use in plugins is to derive network request information (see [Using Network Requests](#using-network-requests)).
 
 The primary objective of the audit function is to return a `score` from `0` to `1` based on the data observed in `artifacts`. There are several other properties that can be returned by an audit to control additional display features. For the complete list, see the [audit results documentation](./understanding-results.md#audit-properties) and [type information](https://github.com/GoogleChrome/lighthouse/blob/623b789497f6c87f85d366b4038deae5dc701c90/types/audit.d.ts#L69-L87).
-
 
 #### Available Artifacts
 
@@ -246,7 +244,7 @@ class HeaderPoliceAudit {
 
     // Do whatever you need to with the network requests.
     const badRequests = requests.filter(request =>
-      request.responseHeaders.some(header => header.name.toLowerCase() === 'x-debug-data'),
+      request.responseHeaders.some(header => header.name.toLowerCase() === 'x-debug-data')
     );
 
     return {
@@ -277,7 +275,7 @@ Write category descriptions that provide context for your plugin's audits and li
 
 #### Audit Titles
 
-Write audit titles in the *present* tense that *describe* what the page is successfully or unsuccessfully doing.
+Write audit titles in the _present_ tense that _describe_ what the page is successfully or unsuccessfully doing.
 
 **DO**
 
@@ -314,13 +312,12 @@ Write audit descriptions that provide brief context for why the audit is importa
 > Images need alt attributes.
 
 > 4.8.4.4 Requirements for providing text to act as an alternative for images
-Except where otherwise specified, the alt attribute.... 10,000 words later... and that is everything you need to know about the `alt` attribute!
-
+> Except where otherwise specified, the alt attribute.... 10,000 words later... and that is everything you need to know about the `alt` attribute!
 
 ### Scoring
 
 1. Weight each audit by its importance.
-1. Differentiate scores within an audit by returning a number *between* `0` and `1`. Scores greater than `0.9` will be hidden in "Passed Audits" section by default.
+1. Differentiate scores within an audit by returning a number _between_ `0` and `1`. Scores greater than `0.9` will be hidden in "Passed Audits" section by default.
 1. Don't inflate scores unnecessarily by marking audits as not applicable. When an audit's advice doesn't apply, simply `return {notApplicable: true}`.
 
 ### Common Mistakes
