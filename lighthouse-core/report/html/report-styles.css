@@ -115,7 +115,7 @@
   --plugin-icon-size: 65%;
   --pwa-icon-margin: 0 6px 0 -2px;
   --pwa-icon-size: var(--topbar-icon-size);
-  --score-container-padding: 12px;
+  --score-container-padding: 8px;
   --score-container-width: 160px;
   --score-number-font-size-big: 42px;
   --score-number-font-size: 34px;
@@ -212,7 +212,6 @@
     --header-padding: 16px 0 16px 0;
     --plugin-icon-size: 75%;
     --pwa-icon-margin: 0 7px 0 -3px;
-    --score-container-padding: 8px;
     --score-container-width: 112px;
     --score-number-font-size-big: 34px;
     --score-number-font-size: 26px;
