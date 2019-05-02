@@ -41,8 +41,8 @@ Plugins are easily shared and have a stable API that won't change between minor 
 
 To develop a Lighthouse plugin, you'll need to write three things:
 
-1. A `package.json` file to define your plugin's dependencies and point to.
-1. A `plugin.js` file to configure your plugin's audits, category name, and scoring.
+1. A `package.json` file to define your plugin's dependencies and point to your `plugin.js` file.
+1. A `plugin.js` file to declare your plugin's audits, category name, and scoring.
 1. Custom audit files that will contain the primary logic of the checks you want to perform.
 
 To see a fully functioning example, see our [plugin recipe](./recipes/lighthouse-plugin-example/readme.md).
@@ -88,7 +88,7 @@ module.exports = {
 These files contain the logic that will generate results for the Lighthouse report. An audit is a class with two important properties:
 
 1. `meta` - This contains important information about how the audit will be referenced and how it will be displayed in the HTML report.
-2. `audit` - This is a function that should return the audit's results.
+2. `audit` - This is a function that should return the audit's results. See [API > Plugin Audits](#plugin-audits).
 
 **Example `audits/has-cat-images.js`**
 
@@ -129,7 +129,7 @@ module.exports = CatAudit;
 
 ### Plugin Config
 
-The plugin config file (`plugin.js` in the example and recipe above) is a subset of the available [configuration](./configuration.md) for full custom Lighthouse config files.
+The plugin config file (see `plugin.js` in the [example](#pluginjs) and [recipe](./recipes/lighthouse-plugin-example/plugin.js)) is a subset of the available [configuration](./configuration.md) for full custom Lighthouse config files.
 
 A plugin config is an object that has at least two properties: `audits` and `category`.
 
