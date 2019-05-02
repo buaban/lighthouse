@@ -23,6 +23,8 @@ If you're new to Lighthouse development, start by reading up on the overall [arc
 
 Lighthouse plugins are a way to extend the functionality of Lighthouse with insight from domain experts (that's you!) and easily share this extra functionality with other Lighthouse users. At its core, a plugin is a node module that implements a set of checks that will get run by Lighthouse and added to the report as a new category.
 
+![picture of Lighthouse plugin results in the HTML report](https://user-images.githubusercontent.com/2301202/57053947-24fc9b80-6c57-11e9-8853-df3a174fcf2c.png)
+
 ### Comparing a Plugin vs. Custom Config
 
 Plugins are easily shared and have a stable API that won't change between minor version bumps but are also more limited in scope than a [custom Lighthouse configuration](./configuration.md). Before getting started with plugins, think about your current needs, and consult the table below to decide which is best for you.
