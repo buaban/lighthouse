@@ -130,7 +130,7 @@ class CategoryRenderer {
     const warningsEl = this.dom.createChildOf(titleEl, 'div', 'lh-warnings');
     this.dom.createChildOf(warningsEl, 'span').textContent = Util.UIStrings.warningHeader;
     if (warnings.length === 1) {
-      warningsEl.appendChild(document.createTextNode(warnings.join('')));
+      warningsEl.appendChild(this.dom.document().createTextNode(warnings.join('')));
     } else {
       const warningsUl = this.dom.createChildOf(warningsEl, 'ul');
       for (const warning of warnings) {
