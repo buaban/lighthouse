@@ -564,7 +564,6 @@
 
 .lh-metrics__disclaimer {
   color: var(--medium-75-gray);
-  text-align: right;
   margin: var(--lh-section-vpadding) 0;
   padding: 0 var(--text-indent);
 }
