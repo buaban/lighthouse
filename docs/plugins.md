@@ -23,17 +23,17 @@ If you're new to Lighthouse development, start by reading up on the overall [arc
 
 Lighthouse plugins are a way to extend the functionality of Lighthouse with insight from domain experts (that's you!) and easily share this extra functionality with other Lighthouse users. At its core, a plugin is a node module that implements a set of checks that will get run by Lighthouse and added to the report as a new category.
 
-### Plugins v. Custom Config
+### Comparing a Plugin vs. Custom Config
 
 Plugins are easily shared and have a stable API that won't change between minor version bumps but are also more limited in scope than a [custom Lighthouse configuration](./configuration.md). Before getting started with plugins, think about your current needs, and consult the table below to decide which is best for you.
 
 | Capability                           | Plugin | Custom Config |
 | ------------------------------------ | ------ | ------------- |
-| Add custom audits                    | ✅      | ✅            |
-| Add custom categories                | ✅      | ✅            |
-| Easily sharable via NPM              | ✅      | ❌            |
+| Include your own custom audits | ✅      | ✅            |
+| Add a custom category          | ✅      | ✅            |
+| Easily shareable via NPM              | ✅      | ❌            |
 | Semver-stable API                    | ✅      | ❌            |
-| Gather custom data from audited page | ❌      | ✅            |
+| Gather custom data from the page (artifacts) | ❌      | ✅            |
 | Modify core categories               | ❌      | ✅            |
 | Modify `config.settings` properties  | ❌      | ✅            |
 
@@ -49,7 +49,7 @@ To see a fully functioning example, see our [plugin recipe](./recipes/lighthouse
 
 #### `package.json`
 
-A Lighthouse plugin is just a node module that starts with `lighthouse-plugin-`. Any dependencies you need are up to you, but do not depend on Lighthouse directly, use [`peerDependencies`](http://npm.github.io/using-pkgs-docs/package-json/types/peerdependencies.html) instead.
+A Lighthouse plugin is just a node module with a name that starts with `lighthouse-plugin-`. Any dependencies you need are up to you. However, do not depend on Lighthouse directly, use [`peerDependencies`](http://npm.github.io/using-pkgs-docs/package-json/types/peerdependencies.html) instead:
 
 **Example `package.json`**
 
@@ -83,11 +83,11 @@ module.exports = {
 };
 ```
 
-#### Custom Audit
+#### Custom Audits
 
 These files contain the logic that will generate results for the Lighthouse report. An audit is a class with two important properties:
 
-1. `meta` - This contains important information about how the audit will be referenced in the config and how it will be displayed in the HTML report.
+1. `meta` - This contains important information about how the audit will be referenced and how it will be displayed in the HTML report.
 2. `audit` - This is a function that should return the audit's results.
 
 **Example `audits/has-cat-images.js`**
@@ -154,11 +154,11 @@ Defines the display strings of the plugin's category and configures audit scorin
 
 Defines the audit groups used for display in the HTML report.
 
-**Example of Audit Display with Groups**
+**Example of Category with Groups**
 <img alt="audit group with groups" src="https://user-images.githubusercontent.com/2301202/56936017-86d3ce80-6aba-11e9-9a43-39bf3810b551.png" width=550>
 
 
-**Example of Audit Display without Groups**
+**Example of Category _without_ Groups**
 <img alt="audit group without groups" src="https://user-images.githubusercontent.com/2301202/56936043-c0a4d500-6aba-11e9-9e37-0bc131010a37.png" width=550>
 
 It is an object whose keys are the group IDs and whose values are objects with the following properties:
