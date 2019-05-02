@@ -31,7 +31,7 @@ Plugins are easily shared and have a stable API that won't change between minor 
 | -------------------------------------------- | ------ | ------------- |
 | Include your own custom audits               | ✅     | ✅            |
 | Add a custom category                        | ✅     | ✅            |
-| Easily shareable via NPM                     | ✅     | ❌            |
+| Easily shareable and extensible              | ✅     | ❌            |
 | Semver-stable API                            | ✅     | ❌            |
 | Gather custom data from the page (artifacts) | ❌     | ✅            |
 | Modify core categories                       | ❌     | ✅            |
