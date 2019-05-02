@@ -25,7 +25,7 @@ Lighthouse plugins are a way to extend the functionality of Lighthouse with insi
 
 ### Plugins v. Custom Config
 
-Plugins are easily shared and have a stable API that won't change between minor version bumps but are also more limited in scope. You might need a [custom Lighthouse configuration](./configuration.md) instead. Before getting started with plugins, think about your current needs, and consult the table below to decide which is best for you.
+Plugins are easily shared and have a stable API that won't change between minor version bumps but are also more limited in scope than a [custom Lighthouse configuration](./configuration.md). Before getting started with plugins, think about your current needs, and consult the table below to decide which is best for you.
 
 | Capability                           | Plugin | Custom Config |
 | ------------------------------------ | ------ | ------------- |
