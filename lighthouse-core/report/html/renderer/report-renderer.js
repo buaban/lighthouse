@@ -247,6 +247,7 @@ class ReportRenderer {
     if (!this._dom.isDevTools() && scoresAll100) {
       const scoresContainer = this._dom.find('.lh-scores-container', headerContainer);
       scoresContainer.classList.add('score100');
+      this._dom._document.body.classList.add('dark');
       scoresContainer.addEventListener('click', _ => {
         scoresContainer.classList.toggle('fireworks-paused');
       });
